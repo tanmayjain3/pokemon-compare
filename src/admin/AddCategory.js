@@ -23,7 +23,6 @@ const AddCategory = () => {
             setSuccess(false)
             createCategory(user._id,token,{name})
             .then(data=>{
-                console.log(data);
                 if(data.error){
                     setError(true)
                 } else{
@@ -55,6 +54,12 @@ const AddCategory = () => {
             }
         }
 
+        const goBack =() =>(
+            <div className="mt-5">
+                <Link to="/admin/dashboard" className="text-warning">Back to Dashboard</Link>
+            </div>
+        )
+
         return (
             <Layout title="Add a new category" description={`G'day ${user.name}`} >
             <div className="row">
@@ -62,6 +67,7 @@ const AddCategory = () => {
                     {showError()}
                     {showSuccess()}
                     {newCategoryForm()}
+                    {goBack()}
                 </div>
             </div>
             </Layout>
