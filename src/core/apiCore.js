@@ -5,3 +5,11 @@ export const getProducts = (sortBy) =>{
     .then(response=> {return response.json()})
     .catch(error => console.log(error))
 }
+
+export const getCategories = () =>{
+    return fetch(`http://localhost:8000/api/categories`, {
+        method:"GET"
+    })
+    .then(response=> {return response.json()})
+    .catch(error => console.log(error))
+}

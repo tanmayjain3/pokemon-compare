@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import Layout from "../core/Layout";
 import { isAuthenticated } from "../auth/index";
-import {createProduct, getCateogries} from "./apiAdmin";
+import {createProduct, getCategories} from "./apiAdmin";
 
 const AddProduct = () =>{
 
@@ -29,7 +29,7 @@ const AddProduct = () =>{
         createdProduct,redirectToProfile,formData} = values;
 
         const init =() =>{
-            getCateogries().then(data=>{
+            getCategories().then(data=>{
                 if(data.error){
                     setValues({...values,error:data.error})
                 } else{
