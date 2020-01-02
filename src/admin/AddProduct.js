@@ -24,9 +24,8 @@ const AddProduct = () =>{
         formData:""
     });
 
-    const {name, description,price,categories,category,
-        shipping,quantity,loading,error,
-        createdProduct,redirectToProfile,formData} = values;
+    const {name, description,price,categories,quantity,loading,error,
+        createdProduct,formData} = values;
 
         const init =() =>{
             getCategories().then(data=>{

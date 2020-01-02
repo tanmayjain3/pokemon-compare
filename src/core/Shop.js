@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import Layout from "./Layout";
-import Card from "./Card";
 import {getCategories} from "./apiCore";
 import Checkbox from "./Checkbox";
 import Radiobox from "./Radiobox";
@@ -17,7 +16,7 @@ const Shop = () =>{
     });
     const [categories,setCategories] = useState([]);
     const [error,setError] = useState(false);
-
+    console.log(error);
     const init =() =>{
         getCategories().then(data=>{
             if(data.error){
@@ -36,7 +35,7 @@ const Shop = () =>{
         const newFilters = {...myFilters};
         newFilters.filters[filterBy] = filters;
 
-        if(filterBy=="price"){
+        if(filterBy==="price"){
             let priceValues = handlePrice(filters)
             newFilters.filters[filterBy] = priceValues;
         }
@@ -47,7 +46,7 @@ const Shop = () =>{
         const data = prices;
         let array = [];
         for(let key in data){
-            if(data[key]._id==value){
+            if(data[key]._id===value){
                 array=data[key].array;
             }
         }

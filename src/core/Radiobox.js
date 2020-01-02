@@ -1,8 +1,8 @@
-import React, {useState,useEffect, Fragment} from "react";
+import React, {useState, Fragment} from "react";
 
 const Radiobox = ({prices, handleFilters}) =>{
     const [value,setValue] = useState(0);
-
+    console.log(value);
     const handleChange =(event)=>{
         handleFilters(event.target.value);
         setValue(event.target.value);

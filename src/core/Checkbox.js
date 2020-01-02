@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from "react";
+import React, {useState} from "react";
 
 const Checkbox = ({categories, handleFilters}) =>{
 
@@ -18,7 +18,7 @@ const Checkbox = ({categories, handleFilters}) =>{
         handleFilters(newCheckedCategoryId);
     }
     return categories.map((c,i)=>(
-        <li className="list-unstyled">
+        <li key={i} className="list-unstyled">
             <input onChange={handleToggle(c._id)} key={i} value={checked.indexOf(c._id===-1)} type="checkbox" className="form-check-input"/>
             <label className="fomr-check-label">{c.name}</label>
         </li>

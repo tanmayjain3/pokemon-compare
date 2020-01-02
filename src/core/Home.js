@@ -7,7 +7,7 @@ const Home = ()=> {
     const [productsBySell, setProductsBySell] = useState([]);
     const [productsByArrival, setProductsByArrival] = useState([])
     const [error, setError] = useState(false);
-
+    console.log(error);
     const loadProductsBySell =()=>{
         getProducts("sold").then(data=>{
             if(data.error){
