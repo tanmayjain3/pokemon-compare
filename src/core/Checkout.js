@@ -29,15 +29,28 @@ const Checkout = ({products}) =>{
         })
     }
 
+    const buy = () =>{
+        let nonce;
+        let getNonce = frontendData.instance.requestPaymentMethod()
+            .then(data=>{
+                nonce = data.nonce;
+                console.log("tanmay",data,getTotal(products),nonce);
+            })
+            .catch(error=>{
+                console.log("error", error);
+                setFrontendData({...frontendData,error:error.message});
+            })
+    }
+
     const showDropIn = () =>{
         return (
-            <div>
+            <div onBlur={()=>setFrontendData({...frontendData,error:""})}>
                 {frontendData.clientToken!==null && products.length>0?(
                     <div>
                         <DropIn options={{
                             authorization:frontendData.clientToken
                         }} onInstance ={instance =>(frontendData.instance = instance)}/>
-                        <button className="btn btn-success">Checkout</button>
+                        <button onClick={buy} className="btn btn-success">Checkout</button>
                     </div>
                 ):null}
             </div>
@@ -62,9 +75,16 @@ const Checkout = ({products}) =>{
         )
     }
 
+    const showError = error =>(
+        <div className="alert alert-danger" style={{display:error?"":"none"}}>
+            {error}
+        </div>
+    )
+
     return (
     <div>
         <h2>Total: ${getTotal()}</h2>
+        {showError(frontendData.error)}
         {showCheckout()}
     </div>
     )
