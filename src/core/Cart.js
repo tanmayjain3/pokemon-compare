@@ -47,7 +47,7 @@ const Cart = () =>{
                     {items.length>0?showItems(items):noItemsMessage()}
                 </div>
                 <div className="col-6">
-                    <h2 className="mb-4">YOur cart summary</h2>
+                    <h2 className="mb-4">Your cart summary</h2>
                     <hr/>
                     <Checkout products={items}/>
                 </div>

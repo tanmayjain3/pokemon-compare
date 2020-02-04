@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import Layout from "./Layout";
-import {getProducts, getBrainTreeClientToken} from "./apiCore";
+import {getProducts, getBrainTreeClientToken,processPayment} from "./apiCore";
 import Card from "./Card";
 import {isAuthenticated} from "../auth";
+import {emptyCart} from "./CartHelpers";
 import DropIn from "braintree-web-drop-in-react";
 
 const Checkout = ({products}) =>{
@@ -34,7 +35,21 @@ const Checkout = ({products}) =>{
         let getNonce = frontendData.instance.requestPaymentMethod()
             .then(data=>{
                 nonce = data.nonce;
-                console.log("tanmay",data,getTotal(products),nonce);
+                const paymentData = {
+                    paymentMethodNonce:nonce,
+                    amount:getTotal(products)
+                }
+                processPayment(userId,token,paymentData)
+                .then(response=>{
+                    console.log(response);
+                    setFrontendData({...frontendData,success:response.success});
+                    emptyCart(()=>{
+                        console.log("empty cart");
+                    })
+                })
+                .catch(error=>{
+                    console.log(error)
+                })
             })
             .catch(error=>{
                 console.log("error", error);
@@ -50,7 +65,7 @@ const Checkout = ({products}) =>{
                         <DropIn options={{
                             authorization:frontendData.clientToken
                         }} onInstance ={instance =>(frontendData.instance = instance)}/>
-                        <button onClick={buy} className="btn btn-success">Checkout</button>
+                        <button onClick={buy} className="btn btn-success btn-block">Checkout</button>
                     </div>
                 ):null}
             </div>
@@ -81,9 +96,16 @@ const Checkout = ({products}) =>{
         </div>
     )
 
+    const showSuccess = success =>(
+        <div className="alert alert-info" style={{display:success?"":"none"}}>
+            Thanks your payment was successful
+        </div>
+    )
+
     return (
     <div>
         <h2>Total: ${getTotal()}</h2>
+        {showSuccess(frontendData.success)}
         {showError(frontendData.error)}
         {showCheckout()}
     </div>
