@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import Layout from "./Layout";
-import {getProducts, getBrainTreeClientToken,processPayment} from "./apiCore";
+import {getProducts, getBrainTreeClientToken,processPayment, createOrder} from "./apiCore";
 import Card from "./Card";
 import {isAuthenticated} from "../auth";
 import {emptyCart} from "./CartHelpers";
@@ -10,6 +10,7 @@ import DropIn from "braintree-web-drop-in-react";
 const Checkout = ({products}) =>{
 
     const [frontendData,setFrontendData] = useState({
+        loading:false,
         success:false,
         clientToken:null,
         error:'',
@@ -31,6 +32,7 @@ const Checkout = ({products}) =>{
     }
 
     const buy = () =>{
+        setFrontendData({loading:true});
         let nonce;
         let getNonce = frontendData.instance.requestPaymentMethod()
             .then(data=>{
@@ -42,13 +44,24 @@ const Checkout = ({products}) =>{
                 processPayment(userId,token,paymentData)
                 .then(response=>{
                     console.log(response);
+                    let createOrderData = {
+                        products:products,
+                        transaction_id:response.transaction.id,
+                        amount:response.transaction.amount,
+                        address:data.address
+                    };
+                    createOrder(userId,token,createOrderData)
                     setFrontendData({...frontendData,success:response.success});
                     emptyCart(()=>{
                         console.log("empty cart");
+                        setFrontendData({loading:false});
+
                     })
                 })
                 .catch(error=>{
                     console.log(error)
+                    setFrontendData({loading:false});
+
                 })
             })
             .catch(error=>{
@@ -57,13 +70,20 @@ const Checkout = ({products}) =>{
             })
     }
 
+    const showLoading = loading =>{
+        return loading && (<h2>Loading </h2>)
+    }
+
     const showDropIn = () =>{
         return (
             <div onBlur={()=>setFrontendData({...frontendData,error:""})}>
                 {frontendData.clientToken!==null && products.length>0?(
                     <div>
                         <DropIn options={{
-                            authorization:frontendData.clientToken
+                            authorization:frontendData.clientToken,
+                            paypal:{
+                                flow:"vault"
+                            }
                         }} onInstance ={instance =>(frontendData.instance = instance)}/>
                         <button onClick={buy} className="btn btn-success btn-block">Checkout</button>
                     </div>
@@ -105,6 +125,7 @@ const Checkout = ({products}) =>{
     return (
     <div>
         <h2>Total: ${getTotal()}</h2>
+        {showLoading(frontendData.loading)}
         {showSuccess(frontendData.success)}
         {showError(frontendData.error)}
         {showCheckout()}
