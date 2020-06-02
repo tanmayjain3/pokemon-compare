@@ -32,11 +32,19 @@ const ViewPokemon = ()=>{
         })
     }
 
+    const handleOptionClick = (event)=>{
+        setSearch("");
+        document.getElementById("search").value = event.target.value;
+    }
+
     const Suggestions = (pokemo) => {
         const options = pokemo.map((r, index) => (
-            <option key={index} value={r.name}>
-            {r.name}
-          </option>
+            <div>
+                <option className="options" key={index} value={r.name} onClick={handleOptionClick}>
+                {r.name}
+                </option>
+                <hr className="line"/>
+            </div>
         ))
         console.log(options);
         return options;
@@ -46,11 +54,13 @@ return(
     <div>
         <Header/>
         <div className="container-hori">
-            <h6 className="gotta">
-            Select your pokemon
-            </h6>
+            <div>
+                <h6 className="gotta">
+                Select your pokemon
+                </h6>
+            </div>
             <div className="search-container">
-                <input className="search" type="search" onChange={handlePokemonSearch}></input> 
+                <input id="search" className="search" type="text" onChange={handlePokemonSearch}></input> 
                 {search.length>0 && Suggestions(similarPoke(search))}
             </div>
         </div>
