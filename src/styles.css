@@ -1,100 +1,44 @@
-
-
-.btn, .jumbotron, .nav :hover{
-    border-radius:0px;
+.nav{
+    background-color: grey;
+    height: 50px;
 }
 
-.product-img{
-    min-height: 100px;
+.nav-item{
+    align-self: center;
+    margin-left: 30px;
 }
 
-.jumbotron h2{
-    margin-top: -20px;
+.container{
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
 }
 
-@media only screen and (max-width:600px){
-    .jumbotron h2{
-        margin-top: 10px;
-    }
+.gotta{
+    align-self: center;
 }
 
-.jumbotron{
-
-    width:30wh;
-    height:30vh;
-    color:#fff;
-    background: linear-gradient(-45deg,#ee7752,#e73c7e,#23a6d5,#23d5ab);
-    background-size: 400% 400%;
-    -webkit-animation: Gradient 15s ease infinite;
-    -moz-animation: Gradient 15s ease infinite;
-    animation: Gradient 15s ease infinite;
+.buttons{
+    width: fit-content;
+    align-self: center;
+    margin-top: 50px;
+    padding:5px 20px 5px 20px;
 }
 
-@-webkit-keyframes Gradient{
-    
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+.container-hori{
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    margin-top: 100px;
+    margin-left: 100px;
 }
 
-@-moz-keyframes Gradient{
-    
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+.search{
+    margin-left: 5px;
 }
 
-@keyframes Gradient{
-    
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-.name{
-    background: indigo;
-    color: #000;
-    font-weight: bold;
-}
-
-.black-10{
-    background: #f2f2f2;
-}
-
-.black-9{
-    background: #e6e6e6;
-}
-
-.black-8{
-    background: #d9d9d9;
-}
-
-.black-7{
-    background: #cccccc;
-}
-
-.cart-badge, .cart-badge:hover{
-    border-radius: 50%;
-    padding: 2px;
-    font-size: 12px;
-    font-style: italic;
-    background: black;
+.search-container{
+    display: flex;
+    flex-direction: column;
 }
