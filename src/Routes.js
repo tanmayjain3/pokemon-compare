@@ -1,16 +1,17 @@
 import React from "react";
-import {Router, Switch, Route} from "react-router-dom"
+import {Switch, Route, BrowserRouter} from "react-router-dom"
 import Home from "./Home";
 import ViewPokemon from "./ViewPokemons";
-import history from "./History";
+import PokemonDetails from "./PokemonDetails";
 
 const Routes = () =>{
-    return (<Router history={history}>
+    return (<BrowserRouter>
         <Switch>
         <Route path="/" exact component={Home}/>
         <Route path="/viewPokemon" exact component={ViewPokemon}/>
+        <Route path="/pokemonDetails" exact component={PokemonDetails}/>
         </Switch>
-    </Router>)
+    </BrowserRouter>)
 }
 
 

@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
-import history from "./History";
 import "./styles.css"
+import { Link } from "react-router-dom";
 
 const Home = ()=>{
 
@@ -12,7 +12,10 @@ return (
         <h3 className="gotta">
         Gotta catch 'em all
         </h3>
-        <button className="buttons" onClick={()=>history.push("./viewPokemon")}>View Pokemon details</button>
+        <Link to={{
+            pathname: "/viewPokemon",
+            data:"hello"
+            }} className="link"><button className="buttons">View Pokemon details</button></Link>
         <button className="buttons">Compare pokemons</button>
         </div>
     </div>

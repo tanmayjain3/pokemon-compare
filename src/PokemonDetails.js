@@ -1,23 +1,18 @@
-import React from "react";
+import React,{useEffect} from "react";
 import Header from "./Header";
-import history from "./History";
-import "./styles.css"
+import {} from "./api";
+const PokemonDetails = (data)=>{
 
-const PokemonDetails = ()=>{
+useEffect(()=>{
 
+},[]);
+
+console.log(data.location.data)
 return (
-    <div className="home">
+    <div>
         <Header/>
-        <div className="container">
-        <h3 className="gotta">
-        Gotta catch 'em all
-        </h3>
-        <button className="buttons" onClick={()=>history.push("./viewPokemon")}>View Pokemon details</button>
-        <button className="buttons">Compare pokemons</button>
-        </div>
     </div>
 )
-
 }
 
 
